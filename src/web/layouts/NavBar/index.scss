@@ -1,0 +1,37 @@
+#user-profile-popover,
+.user-profile {
+  .popover-body {
+    min-width: 250px;
+  }
+  .popover-title {
+    color: #00295b;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .popover-subtitle {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  .popover-logout {
+    cursor: pointer;
+    user-select: none;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    background-color: #212529;
+    color: white;
+    padding: 7px;
+    border-radius: 3px;
+    margin-top: 10px;
+
+    &:hover {
+      opacity: 0.9;
+    }
+    &:active {
+      opacity: 1;
+      text-shadow: inset 0 0 5px #000;
+    }
+  }
+}
