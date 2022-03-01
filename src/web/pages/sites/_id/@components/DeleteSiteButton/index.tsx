@@ -21,6 +21,7 @@ export function DeleteSiteButton(props: DeleteSiteButtonProps) {
     try {
       setLoading(true);
       const response = await services.deleteSite({ siteId: item?._id, userId: auth?._id });
+      setLoading(false);
       if (response?.responseCode === 200) {
         displaySuccess('Success', 'Deleted Site');
         navigate({ pathname: './../' });
@@ -29,7 +30,6 @@ export function DeleteSiteButton(props: DeleteSiteButtonProps) {
       }
     } catch (err: any) {
       displayError(err);
-    } finally {
       setLoading(false);
     }
   };

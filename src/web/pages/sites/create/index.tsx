@@ -27,17 +27,19 @@ export default function CreateSite() {
       setLoading(true);
       const body = { name, region, description, lat, long };
       const response = await services.createSite({ body, userId: auth?._id });
+      setLoading(false);
       if (response?.responseCode === 201) {
         displaySuccess('success', 'created');
-        navigate('./..');
+        if (response?.data?._id) {
+          setTimeout(() => navigate(`./../${response?.data?._id}`), 1000);
+        } else {
+          navigate(`./..`);
+        }
       } else {
         return setError('Could not save site');
       }
-      setLoading(false);
     } catch (err) {
       setError(err);
-      setLoading(false);
-    } finally {
       setLoading(false);
     }
   };

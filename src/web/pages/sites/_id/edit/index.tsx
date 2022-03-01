@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Alert, Button, Col, Form, Modal, Row, Spinner } from 'react-bootstrap';
 import { FaExclamation } from 'react-icons/fa';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { displayError, displaySuccess } from '../../../../../utils/toaster';
 import { InputBox } from '../../../../common/forms/InputBox';
 import { Site } from '../../../../models';
 import { FaPencilAlt, FaTimes, FaSave } from 'react-icons/fa';
 import { useAuth } from '../../../../../utils/hooks/useAuth';
 import services from '../../../../../services';
+import { ViewSiteContext } from '..';
 
 interface EditSiteProps {
   item: Site;
 }
 
 export default function EditSite(props: EditSiteProps) {
+  const { setCount } = useContext(ViewSiteContext);
   const [showModal, setShowModal] = useState(false);
   const { item } = props;
   const { id } = useParams();
@@ -25,7 +27,6 @@ export default function EditSite(props: EditSiteProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { auth } = useAuth();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +38,7 @@ export default function EditSite(props: EditSiteProps) {
       const response = await services.updateSite({ body, userId: auth?._id, siteId: id });
       if (response?.responseCode == 200) {
         displaySuccess('Success', 'Edit successful!');
-        navigate('./..');
+        setCount((count: number) => count + 1);
       } else {
         return displayError({ title: 'Error', message: 'Failed to edit' });
       }

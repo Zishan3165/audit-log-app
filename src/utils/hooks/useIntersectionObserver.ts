@@ -1,4 +1,4 @@
-import React, { MutableRefObject } from 'react';
+import { MutableRefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
 export function useIntersectionObserver(

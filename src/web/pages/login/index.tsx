@@ -24,6 +24,7 @@ export function Login() {
       setLoading(true);
       const body = { username, password };
       const response = await services.loginUser(body);
+      setLoading(false);
       if (response?.responseCode === 401 || response?.responseCode === 400) {
         return setError('Invalid Credentials');
       }
@@ -35,7 +36,6 @@ export function Login() {
       navigate('/logs');
     } catch (err: any) {
       setError(err);
-    } finally {
       setLoading(false);
     }
   };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { MainPageLayout } from '../../../layouts/MainPageLayout';
 import { useParams } from 'react-router';
@@ -11,9 +11,15 @@ import { LogListView } from '../../../common/LogListView';
 import EditSite from './edit';
 import services from '../../../../services';
 
+export const ViewSiteContext = createContext();
+
 export default function ViewSite() {
   const { id } = useParams();
-  const [site, loading, error] = useFutureLoader(() => services.getSite({ siteId: id }), [id]);
+  const [count, setCount] = useState(0);
+  const [site, loading, error] = useFutureLoader(() => services.getSite({ siteId: id }), [
+    id,
+    count
+  ]);
 
   if (loading)
     return (
@@ -33,19 +39,21 @@ export default function ViewSite() {
 
   return (
     <MainPageLayout>
-      <div className="mt-2" style={{ maxWidth: '825px', margin: '0 auto' }}>
-        <div className="buttons-container d-flex justify-content-end" style={{ gap: '1rem' }}>
-          <DeleteSiteButton item={site} />
-          <EditSite item={site} />
+      <ViewSiteContext.Provider value={{ setCount }}>
+        <div className="mt-2" style={{ maxWidth: '825px', margin: '0 auto' }}>
+          <div className="buttons-container d-flex justify-content-end" style={{ gap: '1rem' }}>
+            <DeleteSiteButton item={site} />
+            <EditSite item={site} />
+          </div>
+          <Card className="container p-0 mt-2">
+            <Card.Header>
+              <Card.Title>Site details {idString}</Card.Title>
+            </Card.Header>
+            <Card.Body>{site && <SiteInfo item={site} />}</Card.Body>
+          </Card>
+          <LogListView showId={false} />
         </div>
-        <Card className="container p-0 mt-2">
-          <Card.Header>
-            <Card.Title>Site details {idString}</Card.Title>
-          </Card.Header>
-          <Card.Body>{site && <SiteInfo item={site} />}</Card.Body>
-        </Card>
-        <LogListView showId={false} />
-      </div>
+      </ViewSiteContext.Provider>
     </MainPageLayout>
   );
 }
