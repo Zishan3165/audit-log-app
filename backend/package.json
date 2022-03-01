@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "start": "node server.js",
+    "start": "node --max-old-space-size=4096 server.js",
     "build": "cd .. && npm run build",
     "install-client": "cd .. && npm install",
     "heroku-postbuild": "npm run install-client && npm run build"
