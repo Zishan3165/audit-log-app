@@ -4,14 +4,16 @@ import mongoose from 'mongoose';
 const logSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    index: true
   },
   site: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Site'
+    ref: 'Site',
+    index: true
   },
   createdAt: { type: Date, required: true },
-  action: { type: String, required: true },
+  action: { type: String, required: true, index: true },
   details: { type: Object, required: true }
 });
 

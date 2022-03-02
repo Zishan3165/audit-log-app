@@ -1,5 +1,4 @@
 import Joi from 'joi';
-import { generatePassword } from '../../utils/hashing.js';
 
 const schema = Joi.object().keys({
   username: Joi.string().alphanum().min(5).max(30).required(),

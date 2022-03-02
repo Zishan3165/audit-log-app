@@ -30,12 +30,10 @@ export const saveSite = async (siteBody, userId) => {
 
 export const getAllSites = async (pageNumber = 0) => {
   const Site = models.Site;
-  console.log('sites[0]');
   const sites = await Site.find()
     .limit(25)
     .skip(pageNumber * 25)
     .sort({ name: 1 });
-  console.log(sites[0]);
   return sites;
 };
 
