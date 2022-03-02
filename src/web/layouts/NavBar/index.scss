@@ -1,5 +1,9 @@
 #user-profile-popover,
 .user-profile {
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
   .popover-body {
     min-width: 250px;
   }

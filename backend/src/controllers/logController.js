@@ -1,5 +1,5 @@
 import express from 'express';
-import { saveLog, getAllLogs } from '../services/logService.js';
+import { saveLog, getAllLogs, getLogById } from '../services/logService.js';
 import validators from '../models/view-models/index.js';
 import { handleValidation } from '../middlewares/handleValidations.js';
 import { BadRequest } from '../utils/errors.js';
@@ -24,6 +24,18 @@ const getHandler = async (req, res, next) => {
   }
 };
 
+const getHandlerById = async (req, res, next) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      throw new BadRequest('Invalid ID');
+    }
+    const log = await getLogById(req.params.id);
+    res.status(200).send(log);
+  } catch (e) {
+    return next(e, req, res);
+  }
+};
+
 const postHandler = async (req, res, next) => {
   try {
     const { body } = req;
@@ -35,6 +47,7 @@ const postHandler = async (req, res, next) => {
 };
 
 router.get('/', getHandler);
+router.get('/:id', getHandlerById);
 router.post('/', handleValidation(validators.logSchemaValidate), postHandler);
 
 const configure = (app) => {

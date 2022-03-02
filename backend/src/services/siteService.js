@@ -12,7 +12,8 @@ export const saveSite = async (siteBody, userId) => {
       user: userId,
       site: savedSite._id,
       createdAt: new Date(),
-      action: 'CREATE'
+      action: 'CREATE',
+      details: siteBody
     };
     console.log('created site');
     const logModel = new models.Log(log);
@@ -29,10 +30,12 @@ export const saveSite = async (siteBody, userId) => {
 
 export const getAllSites = async (pageNumber = 0) => {
   const Site = models.Site;
+  console.log('sites[0]');
   const sites = await Site.find()
     .limit(5)
     .skip(pageNumber * 5)
     .sort({ name: 1 });
+  console.log(sites[0]);
   return sites;
 };
 
@@ -48,13 +51,31 @@ export const getSiteById = async (id) => {
 
 export const updateSite = async (site, siteId, userId) => {
   const Site = models.Site;
+
   let model = await Site.findById(siteId);
+  const changedFields = {};
   if (model) {
-    model.name = site.name;
-    model.region = site.region;
-    model.description = site.description;
-    model.lat = site.lat;
-    model.long = site.long;
+    if (model.name !== site.name) {
+      changedFields.name = site.name;
+      model.name = site.name;
+    }
+    if (model.region !== site.region) {
+      changedFields.region = site.region;
+      model.region = site.region;
+    }
+    if (model.description !== site.description) {
+      changedFields.description = site.description;
+      model.description = site.description;
+    }
+    if (model.lat !== site.lat) {
+      changedFields.lat = site.lat;
+      model.lat = site.lat;
+    }
+    if (model.long !== site.long) {
+      changedFields.long = site.long;
+      model.long = site.long;
+    }
+
     const session = await connection.startSession();
     try {
       session.startTransaction();
@@ -64,7 +85,8 @@ export const updateSite = async (site, siteId, userId) => {
         user: userId,
         site: model._id,
         createdAt: new Date(),
-        action: 'UPDATE'
+        action: 'UPDATE',
+        details: changedFields
       };
       const logModel = new models.Log(log);
       await logModel.save();
@@ -72,7 +94,7 @@ export const updateSite = async (site, siteId, userId) => {
       await session.commitTransaction();
       return model;
     } catch (e) {
-      console.log('Transaction failed on update site');
+      console.log('Transaction failed on update site', e);
       await session.abortTransaction();
       throw new Error('Internal Server Error');
     }
@@ -88,17 +110,21 @@ export const deleteSite = async (siteId, userId) => {
     try {
       const session = await connection.startSession();
       session.startTransaction();
-      const result = await Site.deleteOne({ _id: siteId });
-      console.log('deleted site');
+
       const log = {
         user: userId,
         site: model._id,
         createdAt: new Date(),
-        action: 'DELETE'
+        action: 'DELETE',
+        details: model
       };
       const logModel = new models.Log(log);
       await logModel.save();
       console.log('saved log for delete');
+
+      const result = await Site.deleteOne({ _id: siteId });
+      console.log('deleted site');
+
       await session.commitTransaction();
       return result;
     } catch (e) {

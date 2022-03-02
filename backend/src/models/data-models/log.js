@@ -4,14 +4,15 @@ import mongoose from 'mongoose';
 const logSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'User'
   },
   site: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Site',
+    ref: 'Site'
   },
   createdAt: { type: Date, required: true },
   action: { type: String, required: true },
+  details: { type: Object, required: true }
 });
 
 //reference model

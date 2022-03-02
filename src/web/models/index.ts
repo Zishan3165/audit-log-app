@@ -14,8 +14,16 @@ export interface Site {
 }
 
 export interface Log {
+  _id: string;
   user: User;
   site: Site;
   createdAt: Date;
   action: string;
+  details: {
+    name?: string;
+    region?: string;
+    lat?: number;
+    long?: number;
+    description?: string;
+  };
 }

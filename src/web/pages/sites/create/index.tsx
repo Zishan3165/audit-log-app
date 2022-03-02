@@ -25,11 +25,17 @@ export default function CreateSite() {
     try {
       setError(null);
       setLoading(true);
-      const body = { name, region, description, lat, long };
+      const body = {
+        name,
+        region,
+        description,
+        lat: lat?.toString().substring(0, 12),
+        long: long?.toString().substring(0, 12)
+      };
       const response = await services.createSite({ body, userId: auth?._id });
       setLoading(false);
       if (response?.responseCode === 201) {
-        displaySuccess('success', 'created');
+        displaySuccess('Success!', 'Site created');
         if (response?.data?._id) {
           setTimeout(() => navigate(`./../${response?.data?._id}`), 1000);
         } else {
@@ -50,52 +56,61 @@ export default function CreateSite() {
         <Card.Header>
           <Card.Title>Create Site</Card.Title>
         </Card.Header>
-        <Form onSubmit={handleSubmit}>
-          <Card.Body>
-            <InputBox label="Name" value={name} onChange={setName} required />
-            <InputBox label="Region" value={region} onChange={setRegion} required />
-            <InputBox label="Description" value={description} textarea onChange={setDescription} />
-            <Row>
-              <Col lg={6}>
-                <InputBox
-                  min={-90}
-                  max={90}
-                  step={'any'}
-                  label="Latitude"
-                  type="number"
-                  value={lat}
-                  onChange={setLat}
-                  required
-                />
-              </Col>
-              <Col lg={6}>
-                <InputBox
-                  min={-180}
-                  max={180}
-                  step={'any'}
-                  label="Longitude"
-                  type="number"
-                  value={long}
-                  onChange={setLong}
-                  required
-                />
-              </Col>
-            </Row>
-            {error && (
-              <>
-                <hr className="my-2" />
-                <Alert variant="danger" className="my-0 py-2">
-                  <FaExclamation /> {error + ''}
-                </Alert>
-              </>
-            )}
-          </Card.Body>
-          <Card.Footer className="d-flex align-items-center justify-content-end">
-            <Button type="submit" variant="success" style={{ width: 125 }} disabled={loading}>
-              {loading ? <Spinner animation="border" size="sm" /> : 'Create'}
-            </Button>
-          </Card.Footer>
-        </Form>
+        <div>
+          <Form onSubmit={handleSubmit}>
+            <Card.Body>
+              <InputBox label="Name" value={name} onChange={setName} required />
+              <InputBox label="Region" value={region} onChange={setRegion} required />
+              <InputBox
+                label="Description"
+                value={description}
+                textarea
+                onChange={setDescription}
+              />
+              <Row>
+                <Col lg={6}>
+                  <InputBox
+                    min={-90}
+                    max={90}
+                    maxLength={12}
+                    step={'any'}
+                    label="Latitude"
+                    type="number"
+                    value={lat}
+                    onChange={setLat}
+                    required
+                  />
+                </Col>
+                <Col lg={6}>
+                  <InputBox
+                    min={-180}
+                    max={180}
+                    maxLength={12}
+                    step={'any'}
+                    label="Longitude"
+                    type="number"
+                    value={long}
+                    onChange={setLong}
+                    required
+                  />
+                </Col>
+              </Row>
+              {error && (
+                <>
+                  <hr className="my-2" />
+                  <Alert variant="danger" className="my-0 py-2">
+                    <FaExclamation /> {error + ''}
+                  </Alert>
+                </>
+              )}
+            </Card.Body>
+            <Card.Footer className="d-flex align-items-center justify-content-end">
+              <Button type="submit" variant="success" style={{ width: 125 }} disabled={loading}>
+                {loading ? <Spinner animation="border" size="sm" /> : 'Create'}
+              </Button>
+            </Card.Footer>
+          </Form>
+        </div>
       </Card>
     </MainPageLayout>
   );

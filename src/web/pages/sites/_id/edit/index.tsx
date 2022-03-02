@@ -34,7 +34,13 @@ export default function EditSite(props: EditSiteProps) {
     try {
       setError(null);
       setLoading(true);
-      const body = { name, region, description, lat, long };
+      const body = {
+        name,
+        region,
+        description,
+        lat: lat?.toString().substring(0, 12),
+        long: long?.toString().substring(0, 12)
+      };
       const response = await services.updateSite({ body, userId: auth?._id, siteId: id });
       if (response?.responseCode == 200) {
         displaySuccess('Success', 'Edit successful!');
@@ -62,6 +68,7 @@ export default function EditSite(props: EditSiteProps) {
                 <InputBox
                   min={-90}
                   max={90}
+                  maxLength={12}
                   step={'any'}
                   label="Latitude"
                   type="number"
@@ -74,6 +81,7 @@ export default function EditSite(props: EditSiteProps) {
                 <InputBox
                   min={-180}
                   max={180}
+                  maxLength={12}
                   step={'any'}
                   label="Longitude"
                   type="number"
@@ -108,7 +116,7 @@ export default function EditSite(props: EditSiteProps) {
               )}
             </Button>
             <Button
-              onClick={handleSubmit}
+              type="submit"
               variant="outline-primary"
               style={{ width: 125 }}
               disabled={loading}>

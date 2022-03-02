@@ -6,8 +6,9 @@ export function useGetListByPage(future: (...args: any) => Promise<any>, pageNum
   const [loading, setLoading] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
-  const postFunc = async () => {
+  const getFunc = async () => {
     try {
+      if (loading) return;
       setLoading(true);
       const query = { pageNumber };
       const resp = await future(query);
@@ -26,7 +27,7 @@ export function useGetListByPage(future: (...args: any) => Promise<any>, pageNum
   };
 
   useEffect(() => {
-    postFunc();
+    getFunc();
   }, [pageNumber]);
 
   return [value, loading, hasFinished, error];

@@ -64,7 +64,7 @@ export function Login() {
               Login
             </Button>
           </div>
-          <p className="forgot-password text-right">
+          <p className="change-mode text-right">
             Not registered?
             <span
               className="px-1"

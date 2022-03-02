@@ -6,5 +6,6 @@ export default {
     api.get(`${BASE_URL}/logs`, {
       siteId,
       pageNumber
-    })
+    }),
+  getLog: ({ logId }) => api.get(`${BASE_URL}/logs/${logId}`)
 };

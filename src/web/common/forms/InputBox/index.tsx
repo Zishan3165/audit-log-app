@@ -12,6 +12,9 @@ interface InputBoxProps {
   min?: number;
   max?: number;
   step?: any;
+  minLength?: number;
+  rows?: number;
+  maxLength?: number;
 }
 export function InputBox(props: InputBoxProps) {
   const { textarea, value, onChange, label, ...extraProps } = props;
@@ -20,9 +23,11 @@ export function InputBox(props: InputBoxProps) {
       <Form.Control
         value={value}
         onInput={(e) => onChange(e.currentTarget.value)}
+        maxLength={100}
         {...(textarea ? { as: 'textarea' } : { type: 'text' })}
         {...extraProps}
         className={`mb-2 ${extraProps.className || ''}`}
+        rows={20}
       />
     </FloatingLabel>
   );

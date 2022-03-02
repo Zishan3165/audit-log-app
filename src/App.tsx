@@ -11,6 +11,7 @@ import { Layout } from './web/layouts/Layout';
 import { RequireAuth } from './web/common/RequireAuth';
 import { NotFound } from './web/layouts/NotFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ViewLog from './web/pages/logs/_id';
 
 setupToaster();
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/sites" element={<Sites />} />
           <Route path="/sites/create" element={<CreateSite />} />
           <Route path="/sites/:id" element={<ViewSite />} />
+          <Route path="/logs/:id" element={<ViewLog />} />
         </Route>
 
         {/* not found route */}

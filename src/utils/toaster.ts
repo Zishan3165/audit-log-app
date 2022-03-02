@@ -13,10 +13,9 @@ export interface ErrorObj {
 
 export function displayError(error: ErrorObj) {
   if (!error) return;
-  if (error.message === 'invalid token') return;
   iziToast.error({
-    title: error.title,
-    message: error.message
+    title: error.title || 'Error',
+    message: error.message || ''
   });
 }
 

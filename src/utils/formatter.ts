@@ -19,6 +19,6 @@ export function formatAction(action: string) {
     case 'CREATE':
       return 'Created';
     default:
-      return action;
+      return '';
   }
 }

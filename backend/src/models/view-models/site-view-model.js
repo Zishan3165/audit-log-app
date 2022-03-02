@@ -4,8 +4,8 @@ const schema = Joi.object().keys({
   name: Joi.string().max(30).required(),
   region: Joi.string().max(30).required(),
   description: Joi.string().allow('').max(200),
-  lat: Joi.number().required(),
-  long: Joi.number().required()
+  lat: Joi.number().min(-90).max(90).required(),
+  long: Joi.number().min(-180).max(180).required()
 });
 
 const validateSite = (data) => {

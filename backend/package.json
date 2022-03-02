@@ -5,13 +5,16 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
-    "start": "node --max-old-space-size=4096 server.js",
+    "test": "jest tests --runInBand --force-exit",
+    "start": "node --max-old-space-size=4096 src/server.js",
     "build": "cd .. && npm run build",
     "install-client": "cd .. && npm install",
     "heroku-postbuild": "npm run install-client && npm run build"
   },
   "dependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "babel-test": "^0.2.4",
     "bcrypt": "^5.0.1",
     "cors": "2.8.5",
     "dotenv": "16.0.0",
@@ -25,5 +28,8 @@
     "sass": "^1.49.9",
     "superagent": "7.1.1",
     "supertest": "6.2.2"
+  },
+  "devDependencies": {
+    "regenerator-runtime": "^0.13.9"
   }
 }
