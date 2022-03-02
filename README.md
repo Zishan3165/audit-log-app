@@ -12,7 +12,7 @@ In the root directory, run: <br/>
 ```yarn``` <br/>
 ```yarn start```
 
-For running test(Client):<br/>
+For running test (Client):<br/>
 ```yarn test```
 
 Backend:
@@ -21,9 +21,9 @@ In the root directory run:<br/>
 ```yarn```<br/>
 ```yarn start```<br/>
 
-For running test(Backend):<br/>
+For running test (Backend):<br/>
 ```yarn test```<br/>
 
-Server should be available on http://localhost:5000 port 
+Server should be available on http://localhost:5000 port <br/>
 Client should be available on http://localhost:3000 port 
 
