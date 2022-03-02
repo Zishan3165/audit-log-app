@@ -19,8 +19,8 @@ export function SitesListView() {
   const [sites, loading, hasFinished] = useGetListByPage(services.getSites, pageNumber);
 
   useEffect(() => {
-    isBottomVisible && setPageNumber((pageNumber) => pageNumber + 1);
-  }, [isBottomVisible]);
+    isBottomVisible && !loading && !hasFinished && setPageNumber((pageNumber) => pageNumber + 1);
+  });
 
   const isListEmpty = sites?.length === 0;
 
