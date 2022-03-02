@@ -11,8 +11,8 @@ export const getAllLogs = async (pageNumber = 0, filters = {}) => {
   const Log = models.Log;
   const logs = await Log.find(filters)
     .sort({ createdAt: -1 })
-    .limit(10)
-    .skip(pageNumber * 10)
+    .limit(25)
+    .skip(pageNumber * 25)
     .populate('user')
     .populate('site');
   return logs;

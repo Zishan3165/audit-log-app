@@ -29,8 +29,8 @@ export function LogListView(props: LogListViewProps) {
   );
 
   useEffect(() => {
-    isBottomVisible && !loading && setPageNumber((pageNumber) => pageNumber + 1);
-  }, [isBottomVisible]);
+    isBottomVisible && !loading && !hasFinished && setPageNumber((pageNumber) => pageNumber + 1);
+  });
 
   const isListEmpty = logs?.length === 0;
 
