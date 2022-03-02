@@ -8,11 +8,11 @@ How to run locally:<br/>
 Need to open 2 terminals for the client and backend to run respectively
 
 Client: 
-In the root directory, run: 
+In the root directory, run: <br/>
 ```yarn``` <br/>
 ```yarn start```
 
-For running test(Client):
+For running test(Client):<br/>
 ```yarn test```
 
 Backend:
