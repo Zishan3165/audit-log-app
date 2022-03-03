@@ -23,7 +23,7 @@ export function InputBox(props: InputBoxProps) {
       <Form.Control
         value={value}
         onInput={(e) => onChange(e.currentTarget.value)}
-        maxLength={100}
+        maxLength={textarea ? 200 : 100}
         {...(textarea ? { as: 'textarea' } : { type: 'text' })}
         {...extraProps}
         className={`mb-2 ${extraProps.className || ''}`}
