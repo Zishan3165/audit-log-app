@@ -17,7 +17,7 @@ export function LogInfo(props: LogInfo) {
     <>
       <ListGroup className="mb-5">
         <ListGroup.Item>Action : {item.action}</ListGroup.Item>
-        <ListGroup.Item>Performed by : {item.user.username}</ListGroup.Item>
+        <ListGroup.Item>Performed by : {item?.user?.username || 'User (Deleted)'}</ListGroup.Item>
         <ListGroup.Item>Time : {formatDateTime(item?.createdAt)}</ListGroup.Item>
       </ListGroup>
       <h5>Information {formatAction(item?.action)}</h5>

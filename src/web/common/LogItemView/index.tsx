@@ -12,7 +12,7 @@ export function LogItemView(props: LogItemViewProps) {
   const { item } = props;
   const { user } = item;
   const navigate = useNavigate();
-  const message = `${formatAction(item?.action)} by ${user?.username} on ${formatDateTime(
+  const message = `${formatAction(item?.action)} by ${user?.username || 'User'} on ${formatDateTime(
     item?.createdAt
   )} `;
 

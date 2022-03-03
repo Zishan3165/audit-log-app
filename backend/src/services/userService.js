@@ -31,6 +31,34 @@ export const getAllUsers = async () => {
   return users;
 };
 
+export const getUserById = async (id) => {
+  const User = models.User;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      throw new NotFound('User not found');
+    }
+    return user;
+  } catch (e) {
+    console.log(e);
+    throw new NotFound('Invalid Id');
+  }
+};
+
+export const checkIfUserExists = async (id) => {
+  const User = models.User;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return false;
+    }
+    return true;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
 export const updateUser = async (user) => {
   const id = user._id;
   const User = models.User;

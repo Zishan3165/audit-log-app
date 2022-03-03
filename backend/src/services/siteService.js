@@ -1,8 +1,14 @@
 import models from '../models/data-models/index.js';
 import { connection } from '../mongo.js';
-import { BadRequest, NotFound } from '../utils/errors.js';
+import { NotFound } from '../utils/errors.js';
+import { checkIfUserExists } from './userService.js';
 
 export const saveSite = async (siteBody, userId) => {
+  const userExists = await checkIfUserExists(userId);
+  if (!userExists) {
+    throw new NotFound('User does not exist');
+  }
+
   const session = await connection.startSession();
   try {
     session.startTransaction();
@@ -43,11 +49,15 @@ export const getSiteById = async (id) => {
     const site = await Site.findById(id);
     return site;
   } catch (e) {
-    throw new BadRequest('Invalid Id');
+    throw new NotFound('Invalid Id');
   }
 };
 
 export const updateSite = async (site, siteId, userId) => {
+  const userExists = await checkIfUserExists(userId);
+  if (!userExists) {
+    throw new NotFound('User does not exist');
+  }
   const Site = models.Site;
 
   let model = await Site.findById(siteId);
@@ -65,14 +75,15 @@ export const updateSite = async (site, siteId, userId) => {
       changedFields.description = site.description;
       model.description = site.description;
     }
-    if (model.lat !== site.lat) {
+    if (Number(model.lat) !== Number(site.lat)) {
       changedFields.lat = site.lat;
       model.lat = site.lat;
     }
-    if (model.long !== site.long) {
+    if (Number(model.long !== Number(site.long))) {
       changedFields.long = site.long;
       model.long = site.long;
     }
+    if (Object.keys(changedFields).length === 0) return model;
 
     const session = await connection.startSession();
     try {
@@ -102,6 +113,11 @@ export const updateSite = async (site, siteId, userId) => {
 };
 
 export const deleteSite = async (siteId, userId) => {
+  const userExists = await checkIfUserExists(userId);
+  if (!userExists) {
+    throw new NotFound('User does not exist');
+  }
+
   const Site = models.Site;
   let model = await Site.findById(siteId);
   if (model) {

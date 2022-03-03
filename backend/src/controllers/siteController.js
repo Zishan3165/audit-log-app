@@ -19,8 +19,8 @@ const getHandler = async (req, res) => {
 
 const getHandlerById = async (req, res, next) => {
   try {
-    const sites = await getSiteById(req.params.id);
-    res.status(200).send(sites);
+    const site = await getSiteById(req.params.id);
+    res.status(200).send(site);
   } catch (e) {
     return next(e, req, res);
   }

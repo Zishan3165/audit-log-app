@@ -38,8 +38,8 @@ export default function EditSite(props: EditSiteProps) {
         name,
         region,
         description,
-        lat: lat?.toString().substring(0, 12),
-        long: long?.toString().substring(0, 12)
+        lat: Number(lat?.toString().substring(0, 12)),
+        long: Number(long?.toString().substring(0, 12))
       };
       const response = await services.updateSite({ body, userId: auth?._id, siteId: id });
       if (response?.responseCode == 200) {
