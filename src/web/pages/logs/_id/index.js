@@ -4,7 +4,6 @@ import { MainPageLayout } from '../../../layouts/MainPageLayout';
 import { useParams } from 'react-router';
 import { useFutureLoader } from '../../../../utils/hooks/useFutureLoader';
 import { PageLoadingSpinner } from '../../../common/PageLoadingSpinner';
-// import { SiteInfo } from './@components/SiteInfo';
 import { PageLoadingFailure } from '../../../common/PageLoadingFailure';
 import services from '../../../../services';
 import { LogInfo } from './@components/LogInfo';
@@ -12,7 +11,7 @@ import { LogInfo } from './@components/LogInfo';
 export default function ViewLog() {
   const { id } = useParams();
   const [log, loading, error] = useFutureLoader(() => services.getLog({ logId: id }), [id]);
-  console.log(log);
+
   if (loading)
     return (
       <MainPageLayout>
