@@ -20,13 +20,8 @@ export function useFutureLoader(future: () => Promise<any>, deps: DependencyList
     }
   };
 
-  useEffect(
-    () => {
-      callApi();
-    },
-    // eslint-disable-next-line
-    deps || [future]
-  );
-
+  useEffect(() => {
+    callApi();
+  }, deps || [future]);
   return [value, loading, error];
 }

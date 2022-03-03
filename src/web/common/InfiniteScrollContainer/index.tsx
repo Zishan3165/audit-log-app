@@ -4,9 +4,6 @@ import SpinnerComponent from '../SpinnerComponent';
 
 export function InfiniteScrollContainer(props: any) {
   const { hasFinished, refForComp, loading, isListEmpty } = props;
-  if (hasFinished && isListEmpty && !loading) {
-    console.log('gothere');
-  }
   return (
     <>
       {hasFinished && isListEmpty && !loading && <PageLoadingFailure message="No data" />}
