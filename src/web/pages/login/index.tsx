@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Button } from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap';
 import { Navigate, useNavigate } from 'react-router';
 import { InputBox } from '../../common/forms/InputBox';
 import { FaExclamation } from 'react-icons/fa';
@@ -18,7 +18,9 @@ export function Login() {
   const [error, setError] = useState<any>(null);
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     try {
       setError(null);
       setLoading(true);
@@ -45,25 +47,29 @@ export function Login() {
       <div className="outer">
         <div className="inner">
           <h3>Log in</h3>
-          <InputBox label="Username" onChange={setUsername} value={username} />
-          <InputBox label="Password" type="password" onChange={setPassword} value={password} />
-          {error && (
-            <>
-              <hr className="my-2" />
-              <Alert variant="danger" className="my-0 py-2">
-                <FaExclamation /> {error + ''}
-              </Alert>
-            </>
-          )}
-          <div className="text-center my-2">
-            <Button
-              disabled={loading}
-              type="submit"
-              className="btn btn-dark btn-block w-100"
-              onClick={handleLogin}>
-              Login
-            </Button>
-          </div>
+          <Form onSubmit={handleLogin}>
+            <InputBox label="Username" onChange={setUsername} value={username} required />
+            <InputBox
+              label="Password"
+              type="password"
+              onChange={setPassword}
+              value={password}
+              required
+            />
+            {error && (
+              <>
+                <hr className="my-2" />
+                <Alert variant="danger" className="my-0 py-2">
+                  <FaExclamation /> {error + ''}
+                </Alert>
+              </>
+            )}
+            <div className="text-center my-2">
+              <Button disabled={loading} type="submit" className="btn btn-dark btn-block w-100">
+                Login
+              </Button>
+            </div>
+          </Form>
           <p className="change-mode text-right">
             Not registered?
             <span
