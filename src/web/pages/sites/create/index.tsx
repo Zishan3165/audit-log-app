@@ -37,7 +37,7 @@ export default function CreateSite() {
       if (response?.responseCode === 201) {
         displaySuccess('Success!', 'Site created');
         if (response?.data?._id) {
-          setTimeout(() => navigate(`./../${response?.data?._id}`), 1000);
+          navigate(`./../${response?.data?._id}`);
         } else {
           navigate(`./..`);
         }
