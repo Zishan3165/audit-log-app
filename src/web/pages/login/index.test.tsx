@@ -2,6 +2,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { Login } from '.';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { AuthProvider } from '../../../context/AuthProvider';
 
 let container: any = null;
 beforeEach(() => {
@@ -22,7 +23,9 @@ describe('Login component tests', () => {
     act(() => {
       render(
         <Router>
-          <Login />
+          <AuthProvider>
+            <Login />
+          </AuthProvider>
         </Router>,
         container
       );

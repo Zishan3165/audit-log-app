@@ -1,29 +1,17 @@
-# audit-log-system
+# Audit Log System (Frontend using React)
+
 A system where user will register and login and create sites, and respective logs of those actions will be shown
 
-This is a simple MERN stack project, where a user can register, login, create/edit/delete sites and view their logs
+This is a part of a MERN stack project written in React using create-react-app (Webpack), where a user can register, login, create/edit/delete sites and view their logs.
 
+Demo : https://audit-log-app.vercel.app/
 
-How to run locally:<br/>
-Need to open 2 terminals for the client and backend to run respectively
+Backend Implementation in this repository : https://github.com/Zishan3165/audit-log-app-backend
 
-Client: 
-In the root directory, run: <br/>
-```yarn``` <br/>
-```yarn start```
+## Libraries used
 
-For running test (Client):<br/>
-```yarn test```
-
-Backend:
-In the root directory run:<br/>
-```cd backend```<br/>
-```yarn```<br/>
-```yarn start```<br/>
-
-For running test (Backend):<br/>
-```yarn test```<br/>
-
-Server should be available on http://localhost:5000 port <br/>
-Client should be available on http://localhost:3000 port 
-
+- Bootstrap
+- Sass
+- izitoast (for Toasts)
+- query-string
+- Jest, React Testing Library
