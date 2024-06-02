@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { Button, Spinner } from 'react-bootstrap';
 import { confirmDialog, displayError, displaySuccess } from '../../../../../../utils/toaster';
 import { FaTrash } from 'react-icons/fa';
-import { Site } from '../../../../../models';
+import { Site } from '../../../../../types';
 import { useAuth } from '../../../../../../utils/hooks/useAuth';
 import services from '../../../../../../services';
 
@@ -20,7 +20,7 @@ export function DeleteSiteButton(props: DeleteSiteButtonProps) {
   const deleteSite = async () => {
     try {
       setLoading(true);
-      const response = await services.deleteSite({ siteId: item?._id, userId: auth?._id });
+      const response = await services.deleteSite({ siteId: item?._id, userId: auth?._id || '' });
       setLoading(false);
       if (response?.responseCode === 200) {
         displaySuccess('Success', 'Deleted Site');

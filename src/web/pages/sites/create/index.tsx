@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Alert, Button, Card, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { FaExclamation } from 'react-icons/fa';
 import { useNavigate } from 'react-router';
-import { useAuth } from '../../../../utils/hooks/useAuth';
 import { displaySuccess } from '../../../../utils/toaster';
 import { InputBox } from '../../../common/forms/InputBox';
 import { MainPageLayout } from '../../../layouts/MainPageLayout';
 import services from '../../../../services';
+import { useAuth } from '../../../../utils/hooks/useAuth';
 
 export default function CreateSite() {
   const [name, setName] = useState('');
@@ -29,10 +29,10 @@ export default function CreateSite() {
         name,
         region,
         description,
-        lat: lat?.toString().substring(0, 12),
-        long: long?.toString().substring(0, 12)
+        lat: Number(lat?.toString().substring(0, 12)),
+        long: Number(long?.toString().substring(0, 12))
       };
-      const response = await services.createSite({ body, userId: auth?._id });
+      const response = await services.createSite({ body, userId: auth?._id || '' });
       setLoading(false);
       if (response?.responseCode === 201) {
         displaySuccess('Success!', 'Site created');

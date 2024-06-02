@@ -4,15 +4,12 @@ import { Login } from './web/pages/login';
 import { Logs } from './web/pages/logs';
 import { Sites } from './web/pages/sites';
 import CreateSite from './web/pages/sites/create';
-import { setupToaster } from './utils/toaster';
 import ViewSite from './web/pages/sites/_id';
 import { Signup } from './web/pages/signup';
 import { Layout } from './web/layouts/Layout';
 import { RequireAuth } from './web/common/RequireAuth';
 import { NotFound } from './web/layouts/NotFound';
 import ViewLog from './web/pages/logs/_id';
-
-setupToaster();
 
 export function AppRouter() {
   return (

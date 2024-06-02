@@ -1,8 +1,11 @@
 import { DependencyList, useEffect, useState } from 'react';
 
-export function useFutureLoader(future: () => Promise<any>, deps: DependencyList) {
-  const [value, setValue] = useState(null);
-  const [error, setError] = useState<null>(null);
+export function useFutureLoader<T>(
+  future: () => Promise<any>,
+  deps: DependencyList
+): [T | null, boolean, Error | null] {
+  const [value, setValue] = useState<T | null>(null);
+  const [error, setError] = useState<null | Error>(null);
   const [loading, setLoading] = useState(true);
 
   const callApi = async () => {
@@ -14,7 +17,9 @@ export function useFutureLoader(future: () => Promise<any>, deps: DependencyList
       }
       setValue(resp.data);
     } catch (e) {
-      setError(e);
+      if (e instanceof Error) {
+        setError(e);
+      }
     } finally {
       setLoading(false);
     }

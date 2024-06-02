@@ -1,12 +1,9 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Footer } from '../Footer';
 import { NavBar } from '../NavBar';
 import './index.scss';
 
-interface Props {
-  children: any;
-}
-export function MainPageLayout(props: Props) {
+export function MainPageLayout(props: PropsWithChildren) {
   return (
     <div id="main-layout">
       <NavBar />

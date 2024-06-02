@@ -1,5 +1,6 @@
 import React from 'react';
 import { FloatingLabel, Form } from 'react-bootstrap';
+
 interface InputBoxProps {
   textarea?: any;
   value?: any;
@@ -16,6 +17,7 @@ interface InputBoxProps {
   rows?: number;
   maxLength?: number;
 }
+
 export function InputBox(props: InputBoxProps) {
   const { textarea, value, onChange, label, ...extraProps } = props;
   return (

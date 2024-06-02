@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatAction, formatDateTime } from '../../../utils/formatter';
-import { Log } from '../../models';
+import { Log } from '../../types';
 import { ListGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 

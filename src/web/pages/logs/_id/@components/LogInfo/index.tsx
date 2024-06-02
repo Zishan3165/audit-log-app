@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { formatAction, formatDateTime } from '../../../../../../utils/formatter';
-import { Log } from '../../../../../models';
+import { Log } from '../../../../../types';
 import { LogInfoItem } from '../LogInfoItem';
 
 interface LogInfo {

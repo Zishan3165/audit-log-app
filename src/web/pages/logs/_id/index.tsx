@@ -7,10 +7,14 @@ import { PageLoadingSpinner } from '../../../common/PageLoadingSpinner';
 import { PageLoadingFailure } from '../../../common/PageLoadingFailure';
 import services from '../../../../services';
 import { LogInfo } from './@components/LogInfo';
+import { Log } from '../../../types';
 
 export default function ViewLog() {
   const { id } = useParams();
-  const [log, loading, error] = useFutureLoader(() => services.getLog({ logId: id }), [id]);
+  const [log, loading, error] = useFutureLoader<Log>(
+    () => services.getLog({ logId: id || '' }),
+    [id]
+  );
 
   if (loading)
     return (

@@ -1,12 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { PropsWithChildren } from 'react';
 
 interface PageLoadingFailureProps {
   message?: string;
-  children?: ReactElement;
   title?: string;
 }
 
-export function PageLoadingFailure(props: PageLoadingFailureProps) {
+export function PageLoadingFailure(props: PropsWithChildren<PageLoadingFailureProps>) {
   const { title, message, children } = props;
 
   return (

@@ -5,6 +5,7 @@ import { useIntersectionObserver } from '../../../../utils/hooks/useIntersection
 import { useGetListByPage } from '../../../../utils/hooks/useGetListByPage';
 import { SitesItemView } from './SitesItemView';
 import { InfiniteScrollContainer } from '../../../common/InfiniteScrollContainer';
+import { Site } from '../../../types';
 
 export function SitesListView() {
   const [pageNumber, setPageNumber] = useState(0);
@@ -16,7 +17,7 @@ export function SitesListView() {
     },
     false
   );
-  const [sites, loading, hasFinished] = useGetListByPage(services.getSites, pageNumber);
+  const [sites, loading, hasFinished] = useGetListByPage<Site>(services.getSites, pageNumber);
 
   useEffect(() => {
     isBottomVisible && !loading && !hasFinished && setPageNumber((pageNumber) => pageNumber + 1);
@@ -31,9 +32,9 @@ export function SitesListView() {
         <InfiniteScrollContainer
           hasFinished={hasFinished}
           loading={loading}
-          refForComp={ref}
+          ref={ref}
           isListEmpty={isListEmpty}>
-          {sites.map((item: any) => (
+          {sites.map((item) => (
             <SitesItemView key={item._id} data={item} />
           ))}
         </InfiniteScrollContainer>

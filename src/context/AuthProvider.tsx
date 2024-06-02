@@ -1,28 +1,40 @@
-import React, { createContext, ReactElement, useState } from 'react';
+import React, { createContext, useState } from 'react';
+import { User } from '../web/types';
+
+export const AUTH_STORAGE_KEY = 'auth';
 
 export interface AuthProviderProps {
-  auth?: any;
-  saveAuth?: any;
-  removeAuth?: any;
-  children?: ReactElement;
+  auth: User | null;
+  saveAuth: (authObj: User) => void;
+  removeAuth: () => void;
 }
-export const AuthContext = createContext({} as AuthProviderProps);
 
-export const AuthProvider = (props: AuthProviderProps) => {
-  const [auth, setAuth] = useState<any>(JSON.parse(localStorage.getItem('auth') || '{}'));
-  const saveAuth = (authObj: object) => {
+const getUserFromLocalStorage = (): User | null => {
+  try {
+    const storedUser = localStorage.getItem(AUTH_STORAGE_KEY);
+    return storedUser ? JSON.parse(storedUser) : null;
+  } catch (e) {
+    return null;
+  }
+};
+export const AuthContext = createContext<null | AuthProviderProps>(null);
+
+export const AuthProvider = (props: React.PropsWithChildren) => {
+  const [auth, setAuth] = useState<User | null>(getUserFromLocalStorage());
+
+  const saveAuth = (authObj: User) => {
     setAuth(authObj);
-    localStorage.setItem('auth', JSON.stringify(authObj));
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authObj));
   };
 
   const removeAuth = () => {
     setAuth(null);
-    localStorage.removeItem('auth');
+    localStorage.removeItem(AUTH_STORAGE_KEY);
   };
 
   return (
     <AuthContext.Provider value={{ auth, saveAuth, removeAuth }}>
-      {props?.children}
+      {props.children}
     </AuthContext.Provider>
   );
 };

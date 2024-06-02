@@ -6,16 +6,19 @@ import { FaExclamation } from 'react-icons/fa';
 import { displaySuccess } from '../../../utils/toaster';
 import { useAuth } from '../../../utils/hooks/useAuth';
 import services from '../../../services';
+import { LoginRequest } from '../../../services/users';
 
 export function Login() {
   const { auth, saveAuth } = useAuth();
+
   if (auth?.username) {
     return <Navigate to="/logs" />;
   }
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -24,7 +27,7 @@ export function Login() {
     try {
       setError(null);
       setLoading(true);
-      const body = { username, password };
+      const body: LoginRequest = { username, password };
       const response = await services.loginUser(body);
       setLoading(false);
       if (response?.responseCode === 401 || response?.responseCode === 400) {

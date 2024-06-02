@@ -8,7 +8,7 @@ export function RequireAuth() {
   const { auth, removeAuth } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  const checkUser = async (id: any) => {
+  const checkUser = async (id: string) => {
     try {
       setLoading(true);
       const response = await services.getUser(id);
@@ -29,7 +29,11 @@ export function RequireAuth() {
   }, [auth]);
 
   if (loading) {
-    return <SpinnerComponent />;
+    return (
+      <div style={{ height: '100vh' }} className="d-flex justify-content-center align-items-center">
+        <SpinnerComponent />
+      </div>
+    );
   }
 
   return auth?.username ? <Outlet /> : <Navigate to="/login" />;

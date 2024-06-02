@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
-import { Site } from '../../../../../models';
+import { Site } from '../../../../../types';
 
 interface SiteInfo {
   item: Site;

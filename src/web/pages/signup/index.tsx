@@ -6,6 +6,7 @@ import { InputBox } from '../../common/forms/InputBox';
 import { FaExclamation } from 'react-icons/fa';
 import { useAuth } from '../../../utils/hooks/useAuth';
 import services from '../../../services';
+import { SignUpRequest } from '../../../services/users';
 
 export function Signup() {
   const { auth } = useAuth();
@@ -16,7 +17,7 @@ export function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -25,18 +26,18 @@ export function Signup() {
     try {
       setError(null);
       setLoading(true);
-      const body = { username, email, password };
+      const body: SignUpRequest = { username, email, password };
       const response = await services.signUp(body);
       if (response?.responseCode === 409) {
         return setError('User already exists');
       }
       if (response?.responseCode === 400) {
-        return setError('Invalid information');
+        return setError('Invalid information. Username must be alphanumeric');
       }
       displaySuccess('Success', 'Signup Successful. Please login');
       navigate('/login');
-    } catch (err: any) {
-      setError(err);
+    } catch (err) {
+      setError('An error occured. Please try again later.');
     } finally {
       setLoading(false);
     }

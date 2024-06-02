@@ -6,6 +6,7 @@ import { useGetListByPage } from '../../../utils/hooks/useGetListByPage';
 import { useIntersectionObserver } from '../../../utils/hooks/useIntersectionObserver';
 import { InfiniteScrollContainer } from '../InfiniteScrollContainer';
 import { LogItemView } from '../LogItemView';
+import { Log } from '../../types';
 
 interface LogListViewProps {
   showId?: boolean;
@@ -23,16 +24,16 @@ export function LogListView(props: LogListViewProps) {
     },
     false
   );
-  const [logs, loading, hasFinished] = useGetListByPage(
+  const [logs, loading, hasFinished] = useGetListByPage<Log>(
     (params) => services.getLogs({ siteId: id, ...params }),
     pageNumber
   );
 
   useEffect(() => {
     isBottomVisible && !loading && !hasFinished && setPageNumber((pageNumber) => pageNumber + 1);
-  });
+  }, [isBottomVisible, loading, hasFinished]);
 
-  const isListEmpty = logs?.length === 0;
+  const isListEmpty = logs.length === 0;
 
   return (
     <Card className="container p-0 mt-2 ">
@@ -40,10 +41,10 @@ export function LogListView(props: LogListViewProps) {
       <Card.Body className="list-view-container">
         <InfiniteScrollContainer
           isListEmpty={isListEmpty}
-          refForComp={ref}
+          ref={ref}
           hasFinished={hasFinished}
           loading={loading}>
-          {logs.map((item: any) => (
+          {logs.map((item) => (
             <LogItemView item={item} key={item._id} showId={showId} />
           ))}
         </InfiniteScrollContainer>

@@ -4,7 +4,7 @@ import { FaExclamation } from 'react-icons/fa';
 import { useParams } from 'react-router';
 import { displayError, displaySuccess } from '../../../../../utils/toaster';
 import { InputBox } from '../../../../common/forms/InputBox';
-import { Site } from '../../../../models';
+import { Site } from '../../../../types';
 import { FaPencilAlt, FaTimes, FaSave } from 'react-icons/fa';
 import { useAuth } from '../../../../../utils/hooks/useAuth';
 import services from '../../../../../services';
@@ -41,7 +41,11 @@ export default function EditSite(props: EditSiteProps) {
         lat: Number(lat?.toString().substring(0, 12)),
         long: Number(long?.toString().substring(0, 12))
       };
-      const response = await services.updateSite({ body, userId: auth?._id, siteId: id });
+      const response = await services.updateSite({
+        body,
+        userId: auth?._id || '',
+        siteId: id || ''
+      });
       if (response?.responseCode == 200) {
         displaySuccess('Success', 'Edit successful!');
         setCount((count: number) => count + 1);
