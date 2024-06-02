@@ -1,8 +1,8 @@
-# Audit Log System (Frontend using React)
+# Audit Log System (Frontend using React and Typescript)
 
 A system where user will register and login and create sites, and respective logs of those actions will be shown
 
-This is a part of a MERN stack project written in React using create-react-app (Webpack), where a user can register, login, create/edit/delete sites and view their logs.
+This is a part of a MERN stack project written in React and Typescript using create-react-app (Webpack), where a user can register, login, create/edit/delete sites and view their logs.
 
 Demo : https://audit-log-app.vercel.app/
 
